@@ -3,9 +3,7 @@ using UnityEngine;
 public class SpaceJunk : MonoBehaviour
 {
     [Header("Junk Settings")]
-    public int Level = 1;
-    public int SpaceReq = 1;
-    public int Points = 1;
+    public JunkData junkInfo;
 
     [Header("Floating Settings")]
     [SerializeField] private float floatAmplitude = 0.5f;   // how far up/down it moves
@@ -71,7 +69,7 @@ public class SpaceJunk : MonoBehaviour
         {
             PlayerJunkCollector playerJunk = other.GetComponent<PlayerJunkCollector>();
             PlayerData playerData = playerJunk.playerData;
-            bool canCollect = Level <= playerData.PlayerLevel && playerJunk.currentCapacity + SpaceReq <= playerJunk.totalCapacity;
+            bool canCollect = junkInfo.Level <= playerData.PlayerLevel && playerJunk.currentCapacity + junkInfo.SpaceReq <= playerJunk.totalCapacity;
             if (canCollect)
             {
                 player = other.transform;
@@ -80,4 +78,12 @@ public class SpaceJunk : MonoBehaviour
         }
     }
 
+}
+
+[System.Serializable]
+public class JunkData
+{
+    public int Level = 1;
+    public int SpaceReq = 1;
+    public int Points = 1;
 }

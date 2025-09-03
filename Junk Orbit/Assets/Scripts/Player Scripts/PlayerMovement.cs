@@ -3,11 +3,14 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] private GameObject Player;
     [SerializeField] private Rigidbody PlayerRb;
 
+    [Header("Script Ref")]
+    [SerializeField] private PlayerData playerData;
+
     [Header("Variables")]
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float moveForce = 10f;
+    [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
 
     [Header("Joystick")]
@@ -15,36 +18,46 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private ParticleSystem rocketTrail;
-    [SerializeField] private AudioSource rocketSound;    
-    [SerializeField] private float fadeSpeed = 2f;       // higher = faster fade
+    [SerializeField] private AudioSource rocketSound;
+    [SerializeField] private float fadeSpeed = 2f;
 
     private float targetVolume = 0f;
 
-    void Update()
+    private void Start()
+    {
+        maxSpeed = playerData.PlayerSpeed;
+    }
+
+    void FixedUpdate()
     {
         Movement();
-        rocketSound.volume = Mathf.Lerp(rocketSound.volume, targetVolume, fadeSpeed * Time.deltaTime);
+        rocketSound.volume = Mathf.Lerp(rocketSound.volume, targetVolume, fadeSpeed * Time.fixedDeltaTime);
     }
 
     void Movement()
     {
-        Vector2 movement = joystick.Direction;
-        Vector3 move = new Vector3(movement.x, 0, movement.y);
+        Vector2 input = joystick.Direction;
+        Vector3 move = new Vector3(input.x, 0, input.y);
 
-        // Move the parent
-        Player.transform.Translate(-move * moveSpeed * Time.deltaTime, Space.World);
         if (move != Vector3.zero)
         {
-            // Rotation
+            PlayerRb.AddForce(-move * moveForce, ForceMode.Acceleration);
+
+            if (PlayerRb.linearVelocity.magnitude > maxSpeed)
+            {
+                PlayerRb.linearVelocity = PlayerRb.linearVelocity.normalized * maxSpeed;
+            }
+
+            // Rotate to face movement direction
             Quaternion targetRotation = Quaternion.LookRotation(-move, Vector3.up);
             Vector3 euler = targetRotation.eulerAngles;
             targetRotation = Quaternion.Euler(-90, 0, euler.y);
-            Player.transform.rotation = Quaternion.Slerp(Player.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            PlayerRb.rotation = Quaternion.Slerp(PlayerRb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
 
+            // Effects
             if (!rocketTrail.isPlaying) rocketTrail.Play();
-            targetVolume = .5f;
+            targetVolume = 0.5f;
             if (!rocketSound.isPlaying) rocketSound.Play();
-            PlayerRb.constraints = RigidbodyConstraints.None;
         }
         else
         {
@@ -52,7 +65,11 @@ public class PlayerMovement : MonoBehaviour
             targetVolume = 0f;
             if (rocketSound.isPlaying && rocketSound.volume < 0.01f)
                 rocketSound.Stop();
-            PlayerRb.constraints = RigidbodyConstraints.FreezePosition;
         }
+    }
+
+    public void UpdateSpeed(int newSpeed)
+    {
+        maxSpeed = newSpeed;
     }
 }

@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Capacity UI")]
     [SerializeField] private GameObject CapacityBarParent;
     [SerializeField] private Image CapacityBarImage;
     [SerializeField] private float fillSpeed = 2f;
@@ -12,6 +14,9 @@ public class UIManager : MonoBehaviour
 
     private float targetFill;
     private Vector3 originalPosition;
+
+    [Header("Capacity UI")]
+    [SerializeField] private TextMeshProUGUI Points;
 
     void Start()
     {
@@ -28,6 +33,12 @@ public class UIManager : MonoBehaviour
     public void UpdateCapacityBar(int currentCapacity, int totalCapacity)
     {
         targetFill = (float)currentCapacity / totalCapacity;
+    }
+    public void SetCapacityBarInstant(int currentCapacity, int totalCapacity)
+    {
+        float fill = (float)currentCapacity / totalCapacity;
+        targetFill = fill;
+        CapacityBarImage.fillAmount = fill;
     }
 
     public void ShakeBar()
@@ -50,5 +61,10 @@ public class UIManager : MonoBehaviour
 
         // reset position
         CapacityBarParent.transform.localPosition = originalPosition;
+    }
+
+    public void UpdatePoints(int points)
+    {
+        Points.text = "P: " + points;
     }
 }

@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerJunkCollector : MonoBehaviour
 {
     [Header("Script Ref")]
     public PlayerData playerData;
     public UIManager uIManager;
+
+    [Header("Collect Settings")]
+    public List<JunkData> JunkList;
 
     [Header("Collect Settings")]
     [SerializeField] private float shrinkDuration = 0.3f;
@@ -30,13 +34,13 @@ public class PlayerJunkCollector : MonoBehaviour
             SpaceJunk spaceJunk = junk.GetComponent<SpaceJunk>();
 
             // Check: player level high enough AND enough space
-            bool hasCapacity = currentCapacity + spaceJunk.SpaceReq <= totalCapacity;
-            bool isLevelMatch = spaceJunk.Level <= playerData.PlayerLevel;
+            bool hasCapacity = currentCapacity + spaceJunk.junkInfo.SpaceReq <= totalCapacity;
+            bool isLevelMatch = spaceJunk.junkInfo.Level <= playerData.PlayerLevel;
 
             if (hasCapacity && isLevelMatch)
             {
-                currentCapacity += spaceJunk.SpaceReq;
-                StartCoroutine(ShrinkAndDestroy(junk));
+                currentCapacity += spaceJunk.junkInfo.SpaceReq;
+                StartCoroutine(ShrinkAndDestroy(junk, spaceJunk));
             }
             else
             {
@@ -54,7 +58,7 @@ public class PlayerJunkCollector : MonoBehaviour
         }
     }
 
-    private IEnumerator ShrinkAndDestroy(GameObject junk)
+    private IEnumerator ShrinkAndDestroy(GameObject junk, SpaceJunk spaceJunk)
     {
         Vector3 originalScale = junk.transform.localScale;
         float time = 0f;
@@ -71,6 +75,14 @@ public class PlayerJunkCollector : MonoBehaviour
 
         junk.transform.localScale = Vector3.zero;
         uIManager.UpdateCapacityBar(currentCapacity,totalCapacity);
+
+        JunkList.Add(spaceJunk.junkInfo);
+
         Destroy(junk);
+    }
+
+    public void UpdateCapacity(int newCapacity)
+    {
+        totalCapacity = newCapacity;
     }
 }
