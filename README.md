@@ -22,3 +22,8 @@ A Unity-based casual arcade game where players pilot a rocket and collect floati
 2) Collect space junk to earn points and fill your cargo hold.
 3) Manage capacity – return or upgrade when full.
 4) Avoid boundaries and meteoroids while maximizing your haul.
+
+🚀 Next Steps :-
+1) Upgrade System: Add in-game shop for capacity, speed, and level upgrades.
+2) Enemy AI: Competing drones collecting junk.
+3) Power-Ups: Temporary boosts (e.g., magnet, shield, turbo).
