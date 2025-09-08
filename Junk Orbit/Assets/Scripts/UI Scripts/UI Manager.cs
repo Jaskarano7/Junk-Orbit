@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float fillSpeed = 2f;
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float shakeStrength = 5f;
+    [SerializeField] private TextMeshProUGUI Capacity;
 
     private float targetFill;
     private Vector3 originalPosition;
@@ -22,8 +23,8 @@ public class UIManager : MonoBehaviour
     {
         CapacityBarImage.fillAmount = 0f;
         targetFill = 0f;
-        if (CapacityBarParent != null)
-            originalPosition = CapacityBarParent.transform.localPosition;
+        originalPosition = CapacityBarParent.transform.localPosition;
+        Capacity.text = "0/0";
     }
     void Update()
     {
@@ -33,12 +34,15 @@ public class UIManager : MonoBehaviour
     public void UpdateCapacityBar(int currentCapacity, int totalCapacity)
     {
         targetFill = (float)currentCapacity / totalCapacity;
+
+        Capacity.text = currentCapacity.ToString()+"/"+ totalCapacity.ToString();
     }
     public void SetCapacityBarInstant(int currentCapacity, int totalCapacity)
     {
         float fill = (float)currentCapacity / totalCapacity;
         targetFill = fill;
         CapacityBarImage.fillAmount = fill;
+        Capacity.text = currentCapacity.ToString() + "/" + totalCapacity.ToString();
     }
 
     public void ShakeBar()

@@ -84,5 +84,6 @@ public class PlayerJunkCollector : MonoBehaviour
     public void UpdateCapacity(int newCapacity)
     {
         totalCapacity = newCapacity;
+        uIManager.SetCapacityBarInstant(currentCapacity,totalCapacity);
     }
 }

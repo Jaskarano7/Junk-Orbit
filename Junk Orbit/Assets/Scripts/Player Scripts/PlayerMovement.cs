@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         maxSpeed = playerData.PlayerSpeed;
+        moveForce = playerData.PlayerAcceleration;
     }
 
     void FixedUpdate()
@@ -71,5 +72,10 @@ public class PlayerMovement : MonoBehaviour
     public void UpdateSpeed(int newSpeed)
     {
         maxSpeed = newSpeed;
+    }
+
+    public void UpdateAcc(int newAcc)
+    {
+        moveForce = newAcc;
     }
 }

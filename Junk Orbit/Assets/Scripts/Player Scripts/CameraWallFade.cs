@@ -8,10 +8,6 @@ public class CameraWallFade : MonoBehaviour
     [SerializeField] private float fadeSpeed = 5f;
     [SerializeField] private LayerMask wallMask;
 
-    [Header("Camera Settings")]
-    [SerializeField] private Vector3 offset = new Vector3(0f, 5f, -10f);
-    [SerializeField] private float smoothSpeed = 5f;
-
     private Renderer currentWall;
     private Material wallMaterial;
     private Color originalColor;
@@ -66,20 +62,5 @@ public class CameraWallFade : MonoBehaviour
                 wallMaterial = null;
             }
         }
-    }
-
-    void LateUpdate()
-    {
-        if (player == null) return;
-
-        // Desired position
-        Vector3 desiredPosition = player.position + offset;
-
-        // Smoothly move camera
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-
-        transform.position = smoothedPosition;
-
-        // transform.LookAt(target);
     }
 }

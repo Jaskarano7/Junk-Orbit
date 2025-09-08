@@ -52,6 +52,7 @@ public class InteractiveTriggerZone : MonoBehaviour
                 break;
 
             case ActionType.UpgradeAcceleration:
+                AccelerationUpgradation(3);
                 break;
 
             case ActionType.UpgradeCapacity:
@@ -91,6 +92,8 @@ public class InteractiveTriggerZone : MonoBehaviour
             playerData.PlayerPoints -= UpgradePrice;
             uIManager.UpdatePoints(playerData.PlayerPoints);
 
+            audioSource.Play();
+
             Debug.Log("Upgrade Succesfull : Speed");
         }
         else
@@ -111,7 +114,31 @@ public class InteractiveTriggerZone : MonoBehaviour
             playerData.PlayerPoints -= UpgradePrice;
             uIManager.UpdatePoints(playerData.PlayerPoints);
 
+            audioSource.Play();
+
             Debug.Log("Upgrade Succesfull : Capacity");
+        }
+        else
+        {
+            Debug.Log("Less money");
+        }
+    }
+
+    void AccelerationUpgradation(int UpgradePrice)
+    {
+        if (UpgradePrice <= playerData.PlayerPoints)
+        {
+            // Increase the acc
+            playerData.PlayerAcceleration += 10;
+            playerMovement.UpdateAcc(playerData.PlayerAcceleration);
+
+            //Deduct the money
+            playerData.PlayerPoints -= UpgradePrice;
+            uIManager.UpdatePoints(playerData.PlayerPoints);
+
+            audioSource.Play();
+
+            Debug.Log("Upgrade Succesfull : Acceleration");
         }
         else
         {

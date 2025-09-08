@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2717415521487844661}
   - component: {fileID: 4759676031636023102}
   - component: {fileID: 1414441284558390854}
-  - component: {fileID: 3090305559344811127}
+  - component: {fileID: -1278287192922081830}
   m_Layer: 0
   m_Name: Metroid 1
   m_TagString: Untagged
@@ -87,7 +87,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3090305559344811127
+--- !u!114 &-1278287192922081830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,9 +96,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7262885361042587893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a78404e768367474986b33731aa146d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 494c38bbac9105c4a82164b0669dda88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floatAmplitude: 0.5
-  floatSpeed: 1
+  floatFrequency: 1
   rotationSpeed: 30
+  rotationAxis: {x: 0, y: 1, z: 0}
