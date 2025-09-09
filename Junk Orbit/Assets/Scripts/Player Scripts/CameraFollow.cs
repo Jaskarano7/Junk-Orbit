@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -20,6 +21,7 @@ public class CameraFollow : MonoBehaviour
     private Vector3 velocity = Vector3.zero;
     private Rigidbody playerRb;
 
+    private bool isShaking = false;
     void Start()
     {
         if (player != null)
@@ -69,5 +71,32 @@ public class CameraFollow : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation, baseRotation, rotationLag * Time.deltaTime);
         }
+    }
+
+    public void ShakeCamera(float duration = 0.3f, float magnitude = 0.2f)
+    {
+        if (!isShaking)
+            StartCoroutine(CameraShake(duration, magnitude));
+    }
+
+    private IEnumerator CameraShake(float duration, float magnitude)
+    {
+        isShaking = true;
+
+        Vector3 originalPos = transform.position;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float x = Random.Range(-1f, 1f) * magnitude;
+            float y = Random.Range(-1f, 1f) * magnitude;
+
+            transform.position = originalPos + new Vector3(x, y, 0f);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        isShaking = false;
     }
 }
