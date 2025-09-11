@@ -7,9 +7,11 @@ public class PlayerDamageScript : MonoBehaviour
     [Header("Script Reference")]
     [SerializeField] private CameraFollow cameraF;
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private UIManager uIManager;
 
     [Header("Health")]
     [SerializeField] private int CurrentHealth;
+    [SerializeField] private int TotalHealth;
 
     [Header("Damage Overlay")]
     [SerializeField] private Image overlayImage;
@@ -37,15 +39,17 @@ public class PlayerDamageScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        CurrentHealth = playerData.PlayerHealth;
+        CurrentHealth = TotalHealth = playerData.PlayerHealth;
     }
 
     // --- Overlay flash ---
     public void ShowDamageScreen()
     {
         if (flashRoutine != null)
+        {
             StopCoroutine(flashRoutine);
-
+        }
+        uIManager.ShakeBar();
         flashRoutine = StartCoroutine(FlashRed());
     }
 
@@ -105,31 +109,36 @@ public class PlayerDamageScript : MonoBehaviour
         {
             Debug.Log("Collided damage received");
 
-            // camera shake + screen flash
-            if (cameraF != null) cameraF.ShakeCamera();
+            if (cameraF != null)
+            {
+                cameraF.ShakeCamera();
+            }
             ShowDamageScreen();
 
             //Damge Updation
             CurrentHealth -= 1;
             CheckOfGameOver();
+            uIManager.UpdateHealthBar(CurrentHealth, TotalHealth);
 
             // play sound
             if (audioSource != null && ThudSound != null)
+            {
                 audioSource.PlayOneShot(ThudSound);
+            }
 
             // knockback
             if (rb != null)
             {
                 Vector3 knockDir = (transform.position - collision.transform.position).normalized;
-                knockDir.y = 0f; // keep horizontal
+                knockDir.y = 0f;
                 rb.AddForce(knockDir * knockbackForce + Vector3.up * knockbackUpward, ForceMode.Impulse);
             }
 
-            // stun toggle
             if (stunOnHit && !isStunned)
+            {
                 StartCoroutine(StunPlayer());
+            }
 
-            // start cooldown
             StartCoroutine(HitCooldown());
         }
     }

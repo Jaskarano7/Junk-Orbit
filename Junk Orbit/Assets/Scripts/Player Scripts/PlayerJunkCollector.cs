@@ -17,13 +17,10 @@ public class PlayerJunkCollector : MonoBehaviour
     [SerializeField] private AudioClip Collect;
     [SerializeField] private AudioClip Full;
 
-    public int currentCapacity;
-    public int totalCapacity;
 
     private void Start()
     {
-        totalCapacity = playerData.PlayerCapacity;
-        currentCapacity = 0;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,28 +30,7 @@ public class PlayerJunkCollector : MonoBehaviour
             GameObject junk = other.gameObject.transform.root.gameObject;
             SpaceJunk spaceJunk = junk.GetComponent<SpaceJunk>();
 
-            // Check: player level high enough AND enough space
-            bool hasCapacity = currentCapacity + spaceJunk.junkInfo.SpaceReq <= totalCapacity;
-            bool isLevelMatch = spaceJunk.junkInfo.Level <= playerData.PlayerLevel;
-
-            if (hasCapacity && isLevelMatch)
-            {
-                currentCapacity += spaceJunk.junkInfo.SpaceReq;
-                StartCoroutine(ShrinkAndDestroy(junk, spaceJunk));
-            }
-            else
-            {
-                if (!hasCapacity)
-                {
-                    Debug.Log("Cannot collect: Not enough space");
-                }
-                if (!isLevelMatch)
-                {
-                    Debug.Log("Cannot collect: Level too low");
-                }
-                uIManager.ShakeBar();
-                audioSource.PlayOneShot(Full);
-            }
+            StartCoroutine(ShrinkAndDestroy(junk, spaceJunk));
         }
     }
 
@@ -74,16 +50,8 @@ public class PlayerJunkCollector : MonoBehaviour
         }
 
         junk.transform.localScale = Vector3.zero;
-        uIManager.UpdateCapacityBar(currentCapacity,totalCapacity);
-
         JunkList.Add(spaceJunk.junkInfo);
 
         Destroy(junk);
-    }
-
-    public void UpdateCapacity(int newCapacity)
-    {
-        totalCapacity = newCapacity;
-        uIManager.SetCapacityBarInstant(currentCapacity,totalCapacity);
     }
 }

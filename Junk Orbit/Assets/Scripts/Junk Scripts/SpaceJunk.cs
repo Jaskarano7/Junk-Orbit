@@ -29,12 +29,8 @@ public class SpaceJunk : MonoBehaviour
         {
             PlayerJunkCollector playerJunk = other.GetComponent<PlayerJunkCollector>();
             PlayerData playerData = playerJunk.playerData;
-            bool canCollect = junkInfo.Level <= playerData.PlayerLevel && playerJunk.currentCapacity + junkInfo.SpaceReq <= playerJunk.totalCapacity;
-            if (canCollect)
-            {
-                player = other.transform;
-                moveToPlayer = true;
-            }
+            player = other.transform;
+            moveToPlayer = true;
         }
     }
 

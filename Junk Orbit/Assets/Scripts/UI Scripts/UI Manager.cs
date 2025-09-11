@@ -5,44 +5,53 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Capacity UI")]
-    [SerializeField] private GameObject CapacityBarParent;
-    [SerializeField] private Image CapacityBarImage;
+    [Header("Health UI")]
+    [SerializeField] private GameObject HealthBarParent;
+    [SerializeField] private Image HealthBarImage;
+    
+    [Header("Common Variables")]
     [SerializeField] private float fillSpeed = 2f;
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float shakeStrength = 5f;
-    [SerializeField] private TextMeshProUGUI Capacity;
 
-    private float targetFill;
-    private Vector3 originalPosition;
-
-    [Header("Capacity UI")]
+    [Header("Points UI")]
     [SerializeField] private TextMeshProUGUI Points;
 
+    private Vector3 originalPosition;
+    private float HealthTargetFill;
+    
     void Start()
     {
-        CapacityBarImage.fillAmount = 0f;
-        targetFill = 0f;
-        originalPosition = CapacityBarParent.transform.localPosition;
-        Capacity.text = "0/0";
+        HealthBarImage.fillAmount = 1f;
+        HealthTargetFill = 1f;
+        originalPosition = HealthBarParent.transform.localPosition;
     }
     void Update()
     {
-        CapacityBarImage.fillAmount = Mathf.MoveTowards(CapacityBarImage.fillAmount, targetFill, Time.deltaTime * fillSpeed);
+        HealthBarImage.fillAmount = Mathf.MoveTowards(HealthBarImage.fillAmount, HealthTargetFill, Time.deltaTime * fillSpeed);
     }
 
-    public void UpdateCapacityBar(int currentCapacity, int totalCapacity)
+    public void UpdateHealthBar(int currentHealth, int totalHealth)
     {
-        targetFill = (float)currentCapacity / totalCapacity;
-
-        Capacity.text = currentCapacity.ToString()+"/"+ totalCapacity.ToString();
+        HealthTargetFill = (float)currentHealth / totalHealth;
+        if(HealthTargetFill > 0.66f)
+        {
+            HealthBarImage.color = Color.green;
+        }
+        else if(HealthTargetFill <= 0.66 && HealthTargetFill >= 0.33)
+        {
+            HealthBarImage.color = Color.yellow;
+        }
+        else
+        {
+            HealthBarImage.color = Color.red;
+        }
     }
-    public void SetCapacityBarInstant(int currentCapacity, int totalCapacity)
+    public void SetHealthBarInstant(int currentHealth, int totalHealth)
     {
-        float fill = (float)currentCapacity / totalCapacity;
-        targetFill = fill;
-        CapacityBarImage.fillAmount = fill;
-        Capacity.text = currentCapacity.ToString() + "/" + totalCapacity.ToString();
+        float fill = (float)currentHealth / totalHealth;
+        HealthTargetFill = fill;
+        HealthBarImage.fillAmount = fill;
     }
 
     public void ShakeBar()
@@ -57,18 +66,14 @@ public class UIManager : MonoBehaviour
         while (elapsed < shakeDuration)
         {
             float yOffset = Mathf.Sin(elapsed * 40f) * shakeStrength; // up-down motion
-            CapacityBarParent.transform.localPosition = originalPosition + new Vector3(0, yOffset, 0);
+            HealthBarParent.transform.localPosition = originalPosition + new Vector3(0, yOffset, 0);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
         // reset position
-        CapacityBarParent.transform.localPosition = originalPosition;
+        HealthBarParent.transform.localPosition = originalPosition;
     }
 
-    public void UpdatePoints(int points)
-    {
-        Points.text = "P: " + points;
-    }
 }

@@ -6,6 +6,5 @@ public class PlayerData : MonoBehaviour
     public int PlayerLevel;
     public int PlayerSpeed;
     public int PlayerAcceleration;
-    public int PlayerCapacity;
     public int PlayerPoints;
 }

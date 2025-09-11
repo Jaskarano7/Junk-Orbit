@@ -54,10 +54,6 @@ public class InteractiveTriggerZone : MonoBehaviour
             case ActionType.UpgradeAcceleration:
                 AccelerationUpgradation(3);
                 break;
-
-            case ActionType.UpgradeCapacity:
-                CapacityUpgradation(3);
-                break;
         }
     }
 
@@ -67,10 +63,7 @@ public class InteractiveTriggerZone : MonoBehaviour
         {
             var junk = collector.JunkList[0];
             playerData.PlayerPoints += junk.Points;
-            collector.currentCapacity -= junk.SpaceReq;
 
-            uIManager.SetCapacityBarInstant(collector.currentCapacity, collector.totalCapacity);
-            uIManager.UpdatePoints(playerData.PlayerPoints);
             audioSource.Play();
             collector.JunkList.RemoveAt(0);
 
@@ -90,33 +83,10 @@ public class InteractiveTriggerZone : MonoBehaviour
 
             //Deduct the money
             playerData.PlayerPoints -= UpgradePrice;
-            uIManager.UpdatePoints(playerData.PlayerPoints);
 
             audioSource.Play();
 
             Debug.Log("Upgrade Succesfull : Speed");
-        }
-        else
-        {
-            Debug.Log("Less money");
-        }
-    }
-
-    void CapacityUpgradation(int UpgradePrice)
-    {
-        if (UpgradePrice <= playerData.PlayerPoints)
-        {
-            // Increase the speed
-            playerData.PlayerCapacity += 5;
-            collector.UpdateCapacity(playerData.PlayerCapacity);
-
-            //Deduct the money
-            playerData.PlayerPoints -= UpgradePrice;
-            uIManager.UpdatePoints(playerData.PlayerPoints);
-
-            audioSource.Play();
-
-            Debug.Log("Upgrade Succesfull : Capacity");
         }
         else
         {
@@ -134,7 +104,6 @@ public class InteractiveTriggerZone : MonoBehaviour
 
             //Deduct the money
             playerData.PlayerPoints -= UpgradePrice;
-            uIManager.UpdatePoints(playerData.PlayerPoints);
 
             audioSource.Play();
 
@@ -152,5 +121,4 @@ public enum ActionType
     SellJunk,
     UpgradeSpeed,
     UpgradeAcceleration,
-    UpgradeCapacity
 }
