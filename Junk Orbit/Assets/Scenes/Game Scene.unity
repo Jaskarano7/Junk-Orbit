@@ -553,8 +553,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 348546747}
-  - component: {fileID: 348546748}
   - component: {fileID: 348546749}
+  - component: {fileID: 348546748}
   - component: {fileID: 348546750}
   - component: {fileID: 348546751}
   m_Layer: 0
@@ -613,6 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerHealth: 5
+  PlayerOxygen: 15
   PlayerLevel: 1
   PlayerSpeed: 5
   PlayerAcceleration: 5
@@ -631,10 +632,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBarParent: {fileID: 1301133538}
   HealthBarImage: {fileID: 1271345581}
+  OxygenBarImage: {fileID: 450372274}
   fillSpeed: 0.5
   shakeDuration: 0.2
   shakeStrength: 15
-  Points: {fileID: 0}
 --- !u!114 &348546751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8061,7 +8062,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 7
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -9703,6 +9704,8 @@ MonoBehaviour:
   uIManager: {fileID: 348546750}
   CurrentHealth: 0
   TotalHealth: 0
+  CurrentOxygen: 0
+  TotalOxygen: 0
   overlayImage: {fileID: 1449986863}
   flashDuration: 0.3
   maxAlpha: 0.5

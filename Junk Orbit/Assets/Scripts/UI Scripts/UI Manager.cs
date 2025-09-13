@@ -8,37 +8,41 @@ public class UIManager : MonoBehaviour
     [Header("Health UI")]
     [SerializeField] private GameObject HealthBarParent;
     [SerializeField] private Image HealthBarImage;
-    
+
+    [Header("Oxygen UI")]
+    [SerializeField] private Image OxygenBarImage; 
+
     [Header("Common Variables")]
     [SerializeField] private float fillSpeed = 2f;
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float shakeStrength = 5f;
 
-    [Header("Points UI")]
-    [SerializeField] private TextMeshProUGUI Points;
-
     private Vector3 originalPosition;
     private float HealthTargetFill;
+    private float OxygenTargetFill;
     
     void Start()
     {
         HealthBarImage.fillAmount = 1f;
+        OxygenBarImage.fillAmount = 1f;
         HealthTargetFill = 1f;
+        OxygenTargetFill = 1f;
         originalPosition = HealthBarParent.transform.localPosition;
     }
     void Update()
     {
         HealthBarImage.fillAmount = Mathf.MoveTowards(HealthBarImage.fillAmount, HealthTargetFill, Time.deltaTime * fillSpeed);
+        OxygenBarImage.fillAmount = Mathf.MoveTowards(OxygenBarImage.fillAmount, OxygenTargetFill, Time.deltaTime * fillSpeed);
     }
 
-    public void UpdateHealthBar(int currentHealth, int totalHealth)
+    public void UpdateHealthBar(float currentHealth, float totalHealth)
     {
         HealthTargetFill = (float)currentHealth / totalHealth;
-        if(HealthTargetFill > 0.66f)
+        if (HealthTargetFill > 0.66f)
         {
             HealthBarImage.color = Color.green;
         }
-        else if(HealthTargetFill <= 0.66 && HealthTargetFill >= 0.33)
+        else if (HealthTargetFill <= 0.66 && HealthTargetFill >= 0.33)
         {
             HealthBarImage.color = Color.yellow;
         }
@@ -47,11 +51,9 @@ public class UIManager : MonoBehaviour
             HealthBarImage.color = Color.red;
         }
     }
-    public void SetHealthBarInstant(int currentHealth, int totalHealth)
+    public void UpdateOxygenBar(float currentOxygen, float totalOxygen)
     {
-        float fill = (float)currentHealth / totalHealth;
-        HealthTargetFill = fill;
-        HealthBarImage.fillAmount = fill;
+        OxygenTargetFill = (float)currentOxygen / totalOxygen;
     }
 
     public void ShakeBar()

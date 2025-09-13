@@ -10,8 +10,12 @@ public class PlayerDamageScript : MonoBehaviour
     [SerializeField] private UIManager uIManager;
 
     [Header("Health")]
-    [SerializeField] private int CurrentHealth;
-    [SerializeField] private int TotalHealth;
+    [SerializeField] private float CurrentHealth;
+    [SerializeField] private float TotalHealth;
+
+    [Header("Oxygen")]
+    [SerializeField] private float CurrentOxygen;
+    [SerializeField] private float TotalOxygen;
 
     [Header("Damage Overlay")]
     [SerializeField] private Image overlayImage;
@@ -40,6 +44,9 @@ public class PlayerDamageScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         CurrentHealth = TotalHealth = playerData.PlayerHealth;
+        CurrentOxygen = TotalOxygen= playerData.PlayerOxygen;
+
+        StartCoroutine(ReduceOxygen());
     }
 
     // --- Overlay flash ---
@@ -156,6 +163,51 @@ public class PlayerDamageScript : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             Debug.Log("You are dead");
+        }
+    }
+
+    IEnumerator ReduceOxygen()
+    {
+        float timeWithoutOxygen = 0f;
+
+        while (true)
+        {
+            if (CurrentOxygen > 0)
+            {
+                timeWithoutOxygen = 0f;
+
+                CurrentOxygen -= 1;
+                uIManager.UpdateOxygenBar(CurrentOxygen, TotalOxygen);
+            }
+            else
+            {
+                timeWithoutOxygen += 1f;
+                float damageAmount;
+                
+                if (timeWithoutOxygen <= 5f)
+                {
+                    damageAmount = 0.1f;
+                }
+                else if (timeWithoutOxygen <= 10f)
+                {
+                    damageAmount = 0.5f;
+                }
+                else
+                {
+                    damageAmount = 1f;
+                }
+
+                CurrentHealth -= damageAmount;
+                uIManager.UpdateHealthBar(CurrentHealth, TotalHealth);
+            }
+
+            if (CurrentHealth <= 0)
+            {
+                Debug.Log("GameOver");
+                break;
+            }
+
+            yield return new WaitForSeconds(1f);
         }
     }
 }
