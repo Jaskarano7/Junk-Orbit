@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SpaceShipRotation : MonoBehaviour
@@ -15,6 +16,7 @@ public class SpaceShipRotation : MonoBehaviour
     [Header("Button Control")]
     [SerializeField] private Button[] buttons;
     [SerializeField] private float[] targetRotations; // Local target rotations relative to camera
+    [SerializeField] private Button LaunchButton;
 
     private bool isDragging;
     private Vector2 lastPointerPosition;
@@ -41,6 +43,8 @@ public class SpaceShipRotation : MonoBehaviour
             int index = i;
             buttons[i].onClick.AddListener(() => RotateToTarget(index));
         }
+
+        LaunchButton.onClick.AddListener(ToGame);
     }
 
     void Update()
@@ -116,4 +120,10 @@ public class SpaceShipRotation : MonoBehaviour
             isDragging = false;
         }
     }
+
+    void ToGame()
+    {
+        SceneManager.LoadScene("Game Scene");
+    }
+
 }
