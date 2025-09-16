@@ -9,7 +9,7 @@ public class PlayerJunkCollector : MonoBehaviour
     public UIManager uIManager;
 
     [Header("Collect Settings")]
-    public List<JunkData> JunkList;
+    public List<JunkData> JunkList = new List<JunkData>();
 
     [Header("Collect Settings")]
     [SerializeField] private float shrinkDuration = 0.3f;
@@ -27,8 +27,15 @@ public class PlayerJunkCollector : MonoBehaviour
     {
         if (other.CompareTag("Junk"))
         {
-            GameObject junk = other.gameObject.transform.root.gameObject;
+            GameObject junk = other.gameObject.transform.parent.gameObject;
             SpaceJunk spaceJunk = junk.GetComponent<SpaceJunk>();
+
+            if (spaceJunk == null)
+            {
+                Debug.LogError($"{junk.name} does not have a SpaceJunk component!");
+                return;
+            }
+
 
             StartCoroutine(ShrinkAndDestroy(junk, spaceJunk));
         }

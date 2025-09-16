@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Junk
   - Obstacle
+  - Small Obstacle
   layers:
   - Default
   - TransparentFX

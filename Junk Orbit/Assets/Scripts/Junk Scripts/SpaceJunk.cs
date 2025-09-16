@@ -8,9 +8,6 @@ public class SpaceJunk : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;     // degrees per second
 
-    private Vector3 startPos;
-    private float randomOffset;
-
     private Transform player;
     private bool moveToPlayer = false;
 

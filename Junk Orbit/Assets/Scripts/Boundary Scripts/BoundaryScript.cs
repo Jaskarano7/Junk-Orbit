@@ -4,71 +4,69 @@ public class BoundaryScript : MonoBehaviour
 {
     [Header("Boundary Settings")]
     [SerializeField] private GameObject[] meteoridPrefabs;
-    [SerializeField] private Vector2 boundarySize = new Vector2(20f, 20f);
-    [SerializeField] private float spacing = 2f;
+    [SerializeField] private float radius;
+    [SerializeField] private int segments = 36; // number of points around the circle
+    [SerializeField] private float wallThickness = 1f;
+    [SerializeField] private float wallHeight = 10f;
+    [SerializeField] private float rotationSpeed = 10f;
 
     void Start()
     {
-        CreateBoundary();
-        CreateColliders();
+        CreateCircularBoundary();
+        CreateCircularColliders();
     }
 
-    void CreateBoundary()
+    private void FixedUpdate()
     {
-        // Left & Right
-        for (float z = -boundarySize.y / 2; z <= boundarySize.y / 2; z += spacing)
-        {
-            SpawnMeteorid(new Vector3(-boundarySize.x / 2, 0, z));
-            SpawnMeteorid(new Vector3(boundarySize.x / 2, 0, z));
-        }
+        transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+    }
 
-        // Top & Bottom
-        for (float x = -boundarySize.x / 2; x <= boundarySize.x / 2; x += spacing)
+    void CreateCircularBoundary()
+    {
+        for (int i = 0; i < segments; i++)
         {
-            SpawnMeteorid(new Vector3(x, 0, -boundarySize.y / 2));
-            SpawnMeteorid(new Vector3(x, 0, boundarySize.y / 2));
+            float angle = i * Mathf.PI * 2 / segments;
+            Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+            SpawnMeteorid(pos, angle);
         }
     }
 
-    void SpawnMeteorid(Vector3 position)
+    void SpawnMeteorid(Vector3 position, float angle)
     {
         int index = Random.Range(0, meteoridPrefabs.Length);
-        Instantiate(meteoridPrefabs[index], position, Quaternion.identity, transform);
+        GameObject obj = Instantiate(meteoridPrefabs[index], position, Quaternion.identity, transform);
+
+        // Optional: rotate meteor to face center
+        obj.transform.LookAt(transform.position);
     }
 
-    void CreateColliders()
+    void CreateCircularColliders()
     {
-        // Create 4 walls as BoxColliders
-        GameObject walls = new GameObject("BoundaryColliders");
+        GameObject walls = new GameObject("CircularBoundaryColliders");
         walls.transform.parent = transform;
 
-        float thickness = 1f;
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = i * Mathf.PI * 2 / segments;
+            Vector3 pos = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+            Quaternion rot = Quaternion.Euler(0, -angle * Mathf.Rad2Deg, 0);
 
-        // Left wall
-        CreateWall(new Vector3(-boundarySize.x / 2 - thickness / 2, 0, 0),
-                   new Vector3(thickness, 10, boundarySize.y));
+            GameObject wall = new GameObject("WallSegment");
+            wall.transform.parent = walls.transform;
+            wall.transform.localPosition = pos;
+            wall.transform.localRotation = rot;
 
-        // Right wall
-        CreateWall(new Vector3(boundarySize.x / 2 + thickness / 2, 0, 0),
-                   new Vector3(thickness, 10, boundarySize.y));
+            wall.tag = "Obstacle";
 
-        // Bottom wall
-        CreateWall(new Vector3(0, 0, -boundarySize.y / 2 - thickness / 2),
-                   new Vector3(boundarySize.x, 10, thickness));
-
-        // Top wall
-        CreateWall(new Vector3(0, 0, boundarySize.y / 2 + thickness / 2),
-                   new Vector3(boundarySize.x, 10, thickness));
+            // BoxCollider approximating a small arc segment
+            BoxCollider col = wall.AddComponent<BoxCollider>();
+            col.size = new Vector3(wallThickness, wallHeight, (2 * Mathf.PI * radius) / segments);
+            col.isTrigger = false;
+        }
     }
 
-    void CreateWall(Vector3 pos, Vector3 scale)
+    public float BoundaryDimension
     {
-        GameObject wall = new GameObject("Wall");
-        wall.transform.parent = transform;
-        wall.transform.localPosition = pos;
-        wall.transform.localScale = scale;
-
-        BoxCollider collider = wall.AddComponent<BoxCollider>();
-        collider.isTrigger = false; // set true if you only want to stop movement manually
+        get { return radius; }
     }
 }

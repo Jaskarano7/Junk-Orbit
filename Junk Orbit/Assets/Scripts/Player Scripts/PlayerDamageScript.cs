@@ -150,6 +150,25 @@ public class PlayerDamageScript : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Small Obstacle"))
+        {
+            Debug.Log("Small Obstacle no Damage");
+
+            if (cameraF != null)
+            {
+                cameraF.ShakeCamera();
+            }
+
+            // play sound
+            if (audioSource != null && ThudSound != null)
+            {
+                //audioSource.PlayOneShot(ThudSound);
+            }
+        }
+    }
+
     private IEnumerator HitCooldown()
     {
         recentlyHit = true;
