@@ -6,7 +6,7 @@ public class SpaceJunk : MonoBehaviour
     public JunkData junkInfo;
     
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;     // degrees per second
+    [SerializeField] private float moveSpeed = 3f;     // degrees per second
 
     private Transform player;
     private bool moveToPlayer = false;
@@ -37,6 +37,5 @@ public class SpaceJunk : MonoBehaviour
 public class JunkData
 {
     public int Level = 1;
-    public int SpaceReq = 1;
     public int Points = 1;
 }

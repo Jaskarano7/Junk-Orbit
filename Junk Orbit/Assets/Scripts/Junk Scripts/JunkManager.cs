@@ -8,41 +8,98 @@ public class JunkManager : MonoBehaviour
 
     [Header("Junk Settings")]
     [SerializeField] private List<GameObject> junkPrefabs;
+    [SerializeField] private int currentLevel = 1;
     [SerializeField] private int minJunk = 1;
     [SerializeField] private int maxJunk = 5;
-    [SerializeField] private float minJunkDistance = 5f;
+    [SerializeField] private float junkMinDistance = 5f;
+    [SerializeField] private float junkSpawnRadiusMultiplier = 1f;
 
-    private float spawnRadius;
+    [Header("Obstacle Settings")]
+    [SerializeField] private List<GameObject> obstaclePrefabs;
+    [SerializeField] private int minObstacles = 1;
+    [SerializeField] private int maxObstacles = 3;
+    [SerializeField] private float obstacleMinDistance = 8f;
+    [SerializeField] private float obstacleSpawnRadiusMultiplier = 0.7f;
+
+    private float baseRadius;
+
+    // Debug counters
+    private int commonCount = 0;
+    private int rareCount = 0;
+    private int ultraCount = 0;
 
     private void Start()
     {
-        spawnRadius = boundaryScript.BoundaryDimension - 1f;
-        SpawnJunk();
-    }
+        baseRadius = boundaryScript.BoundaryDimension;
 
-    private void SpawnJunk()
-    {
-        if (junkPrefabs == null || junkPrefabs.Count == 0)
-        {
-            Debug.LogWarning("JunkManager: No junk prefabs assigned!");
-            return;
-        }
-
-        int totalJunk = Random.Range(minJunk, maxJunk + 1);
-        Debug.Log(totalJunk);
         List<Vector3> placedPositions = new List<Vector3>();
 
-        int maxAttempts = 100;
+        SpawnJunk(placedPositions);
+        SpawnObstacles(placedPositions);
 
-        for (int i = 0; i < totalJunk; i++)
+        // Debug log at end of spawning
+        Debug.Log($"Spawned Junk -> Common: {commonCount}, Rare: {rareCount}, Ultra: {ultraCount}");
+    }
+
+    private void SpawnJunk(List<Vector3> placedPositions)
+    {
+        if (junkPrefabs == null || junkPrefabs.Count == 0) return;
+
+        int totalJunk = Random.Range(minJunk, maxJunk + 1);
+        float sectorSize = 360f / totalJunk;
+
+        List<GameObject> allowedPrefabs = GetPrefabsForLevel(junkPrefabs, currentLevel);
+
+        SpawnObjects(
+            allowedPrefabs,
+            totalJunk,
+            sectorSize,
+            placedPositions,
+            junkMinDistance,
+            baseRadius * junkSpawnRadiusMultiplier,
+            true
+        );
+    }
+
+    private void SpawnObstacles(List<Vector3> placedPositions)
+    {
+        if (obstaclePrefabs == null || obstaclePrefabs.Count == 0) return;
+
+        int totalObstacles = Random.Range(minObstacles, maxObstacles + 1);
+        float sectorSize = 360f / totalObstacles;
+
+        SpawnObjects(
+            obstaclePrefabs,
+            totalObstacles,
+            sectorSize,
+            placedPositions,
+            obstacleMinDistance,
+            baseRadius * obstacleSpawnRadiusMultiplier,
+            false
+        );
+    }
+
+    private void SpawnObjects(
+        List<GameObject> prefabs,
+        int totalCount,
+        float sectorSize,
+        List<Vector3> placedPositions,
+        float minDistance,
+        float spawnRadius,
+        bool useRarity
+    )
+    {
+        int maxAttempts = 20;
+
+        for (int i = 0; i < totalCount; i++)
         {
             bool positionFound = false;
 
             for (int attempt = 0; attempt < maxAttempts; attempt++)
             {
-                // Pick a random angle and random radius
-                float angle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
-                float radius = Random.Range(0f, spawnRadius);
+                float baseAngle = sectorSize * i;
+                float angle = (baseAngle + Random.Range(0f, sectorSize)) * Mathf.Deg2Rad;
+                float radius = Mathf.Sqrt(Random.Range(0f, 1f)) * spawnRadius;
 
                 Vector3 spawnPos = transform.position + new Vector3(
                     Mathf.Cos(angle) * radius,
@@ -50,11 +107,11 @@ public class JunkManager : MonoBehaviour
                     Mathf.Sin(angle) * radius
                 );
 
-                // Check against all previously placed junk
+                // Check overlap
                 bool tooClose = false;
                 foreach (var pos in placedPositions)
                 {
-                    if (Vector3.Distance(pos, spawnPos) < minJunkDistance)
+                    if (Vector3.Distance(pos, spawnPos) < minDistance)
                     {
                         tooClose = true;
                         break;
@@ -63,10 +120,17 @@ public class JunkManager : MonoBehaviour
 
                 if (!tooClose)
                 {
-                    // Valid position found
-                    int junkIndex = Random.Range(0, junkPrefabs.Count);
-                    GameObject spawnedJunk = Instantiate(junkPrefabs[junkIndex], spawnPos, Quaternion.identity, transform);
-                    spawnedJunk.name = $"Junk_{i}";
+                    int prefabIndex = useRarity
+                        ? GetWeightedIndex(prefabs.Count)
+                        : Random.Range(0, prefabs.Count);
+
+                    GameObject spawned = Instantiate(prefabs[prefabIndex], spawnPos, Quaternion.identity, transform);
+                    spawned.name = (useRarity ? $"Junk_{i}" : $"Obstacle_{i}");
+
+                    // Count rarity only for junk
+                    if (useRarity)
+                        CountRarity(prefabIndex);
+
                     placedPositions.Add(spawnPos);
                     positionFound = true;
                     break;
@@ -75,8 +139,68 @@ public class JunkManager : MonoBehaviour
 
             if (!positionFound)
             {
-                Debug.LogWarning($"Could not find valid position for junk {i}");
+                Debug.LogWarning($"Could not place {(useRarity ? "junk" : "obstacle")} {i} without overlap");
             }
         }
+    }
+
+    private List<GameObject> GetPrefabsForLevel(List<GameObject> prefabs, int level)
+    {
+        List<GameObject> allowed = new List<GameObject>();
+
+        // Common = first 3
+        if (prefabs.Count > 0)
+            allowed.AddRange(prefabs.GetRange(0, Mathf.Min(3, prefabs.Count)));
+
+        // Rare = next 3
+        if (level >= 2 && prefabs.Count > 3)
+            allowed.AddRange(prefabs.GetRange(3, Mathf.Min(3, prefabs.Count - 3)));
+
+        // Ultra = last one
+        if (level >= 3 && prefabs.Count > 6)
+            allowed.Add(prefabs[prefabs.Count - 1]);
+
+        return allowed;
+    }
+
+    private int GetWeightedIndex(int prefabCount)
+    {
+        int[] weights = new int[prefabCount];
+
+        for (int i = 0; i < prefabCount; i++)
+        {
+            if (i <= 2)        // commons
+                weights[i] = 50;
+            else if (i <= 5)   // rares
+                weights[i] = 10;
+            else               // ultra
+                weights[i] = 2;
+        }
+
+        int totalWeight = 0;
+        foreach (int w in weights)
+            totalWeight += w;
+
+        int roll = Random.Range(0, totalWeight);
+        int cumulative = 0;
+
+        for (int i = 0; i < weights.Length; i++)
+        {
+            cumulative += weights[i];
+            if (roll < cumulative)
+                return i;
+        }
+
+        return 0;
+    }
+
+    private void CountRarity(int prefabIndex)
+    {
+        if (prefabIndex <= 2)
+            commonCount++;
+        else if (prefabIndex <= 5)
+            rareCount++;
+        else
+            ultraCount++;
     }
 }

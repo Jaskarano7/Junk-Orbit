@@ -43,22 +43,33 @@ public class PlayerJunkCollector : MonoBehaviour
 
     private IEnumerator ShrinkAndDestroy(GameObject junk, SpaceJunk spaceJunk)
     {
+        if (junk == null) yield break;
+
         Vector3 originalScale = junk.transform.localScale;
         float time = 0f;
 
-        audioSource.PlayOneShot(Collect);
+        if (audioSource != null && Collect != null)
+            audioSource.PlayOneShot(Collect);
 
         while (time < shrinkDuration)
         {
+            if (junk == null) yield break; // safety check
+
             float t = time / shrinkDuration;
             junk.transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
+
             time += Time.deltaTime;
             yield return null;
         }
 
-        junk.transform.localScale = Vector3.zero;
-        JunkList.Add(spaceJunk.junkInfo);
+        if (junk != null) // final check before accessing
+        {
+            junk.transform.localScale = Vector3.zero;
 
-        Destroy(junk);
+            if (spaceJunk != null)
+                JunkList.Add(spaceJunk.junkInfo);
+
+            Destroy(junk);
+        }
     }
 }

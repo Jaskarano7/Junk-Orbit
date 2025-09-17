@@ -908,7 +908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &451932678
 Transform:
   m_ObjectHideFlags: 0
@@ -7088,9 +7088,26 @@ MonoBehaviour:
   - {fileID: 66409958219456924, guid: 44371ce3954ecda48b390280093554b7, type: 3}
   - {fileID: 7768253536675224910, guid: b9e86ffd8e71d69459057c92fb6070bb, type: 3}
   - {fileID: 992127053411615125, guid: 76c3caa141c70a3468adf6d0ad7d1b28, type: 3}
+  - {fileID: 1211431173322013768, guid: 4e38393fb8b829842aed3b6ad8edc08e, type: 3}
+  - {fileID: 513202226462960858, guid: 8e87f6e96f1597f4fbefcc0955c2d4ef, type: 3}
+  - {fileID: 465439416634918061, guid: 565986c905ac0c14e99d1495fe0c4fc6, type: 3}
+  - {fileID: 6736826768651448760, guid: 160b69148f8e6384eb224a0138b0d44d, type: 3}
+  currentLevel: 3
   minJunk: 10
   maxJunk: 20
-  minJunkDistance: 5
+  junkMinDistance: 5
+  junkSpawnRadiusMultiplier: 1
+  obstaclePrefabs:
+  - {fileID: 7262885361042587893, guid: 393dd77727d1c3d458093aac9df719c7, type: 3}
+  - {fileID: 4762633419190416186, guid: fc18c7060887f99469b36d00612c2db9, type: 3}
+  - {fileID: 8589783850331278287, guid: 852342fb4a9cf224e8b80d62fda3418e, type: 3}
+  - {fileID: 6166931649343087103, guid: 1e739842203f5b547be99e6e91cd87ae, type: 3}
+  - {fileID: 8761054000425989870, guid: d75f6f0ece40fe2419e62067afa2c96a, type: 3}
+  - {fileID: 6363651962467247300, guid: 97d1056301dfd4340b012fc7d1759626, type: 3}
+  minObstacles: 10
+  maxObstacles: 20
+  obstacleMinDistance: 10
+  obstacleSpawnRadiusMultiplier: 0.7
 --- !u!1 &1672713737
 GameObject:
   m_ObjectHideFlags: 0
