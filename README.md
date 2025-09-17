@@ -1,5 +1,5 @@
 https://github.com/user-attachments/assets/2317f65c-9a55-493b-a77e-598b95d1ab5d
-# 🪐 Junk Orbit – Space Junk Collector  
+# 🪐 Junk Orbit – Space Junk Collector (IN PROGRESS)
 
 _A Unity-based casual arcade game where players pilot a rocket and collect floating space junk while managing their limited cargo capacity. The game blends resource management with fun, fluid controls and a dynamic space environment._  
 
