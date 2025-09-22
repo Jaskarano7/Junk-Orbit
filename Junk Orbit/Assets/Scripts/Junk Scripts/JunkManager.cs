@@ -21,6 +21,9 @@ public class JunkManager : MonoBehaviour
     [SerializeField] private float obstacleMinDistance = 8f;
     [SerializeField] private float obstacleSpawnRadiusMultiplier = 0.7f;
 
+    [Header("Spawn Restrictions")]
+    [SerializeField] private float innerRadius = 3f;
+
     private float baseRadius;
 
     // Debug counters
@@ -30,14 +33,13 @@ public class JunkManager : MonoBehaviour
 
     private void Start()
     {
-        baseRadius = boundaryScript.BoundaryDimension;
+        baseRadius = boundaryScript.BoundaryDimension - 2;
 
         List<Vector3> placedPositions = new List<Vector3>();
 
         SpawnJunk(placedPositions);
         SpawnObstacles(placedPositions);
 
-        // Debug log at end of spawning
         Debug.Log($"Spawned Junk -> Common: {commonCount}, Rare: {rareCount}, Ultra: {ultraCount}");
     }
 
@@ -101,6 +103,10 @@ public class JunkManager : MonoBehaviour
                 float angle = (baseAngle + Random.Range(0f, sectorSize)) * Mathf.Deg2Rad;
                 float radius = Mathf.Sqrt(Random.Range(0f, 1f)) * spawnRadius;
 
+                // Skip if radius falls inside innerRadius
+                if (radius < innerRadius)
+                    continue;
+
                 Vector3 spawnPos = transform.position + new Vector3(
                     Mathf.Cos(angle) * radius,
                     0f,
@@ -127,7 +133,6 @@ public class JunkManager : MonoBehaviour
                     GameObject spawned = Instantiate(prefabs[prefabIndex], spawnPos, Quaternion.identity, transform);
                     spawned.name = (useRarity ? $"Junk_{i}" : $"Obstacle_{i}");
 
-                    // Count rarity only for junk
                     if (useRarity)
                         CountRarity(prefabIndex);
 
@@ -148,15 +153,12 @@ public class JunkManager : MonoBehaviour
     {
         List<GameObject> allowed = new List<GameObject>();
 
-        // Common = first 3
         if (prefabs.Count > 0)
             allowed.AddRange(prefabs.GetRange(0, Mathf.Min(3, prefabs.Count)));
 
-        // Rare = next 3
         if (level >= 2 && prefabs.Count > 3)
             allowed.AddRange(prefabs.GetRange(3, Mathf.Min(3, prefabs.Count - 3)));
 
-        // Ultra = last one
         if (level >= 3 && prefabs.Count > 6)
             allowed.Add(prefabs[prefabs.Count - 1]);
 
@@ -169,12 +171,9 @@ public class JunkManager : MonoBehaviour
 
         for (int i = 0; i < prefabCount; i++)
         {
-            if (i <= 2)        // commons
-                weights[i] = 50;
-            else if (i <= 5)   // rares
-                weights[i] = 10;
-            else               // ultra
-                weights[i] = 2;
+            if (i <= 2) weights[i] = 50;
+            else if (i <= 5) weights[i] = 10;
+            else weights[i] = 2;
         }
 
         int totalWeight = 0;

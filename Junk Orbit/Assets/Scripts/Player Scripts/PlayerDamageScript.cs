@@ -182,6 +182,7 @@ public class PlayerDamageScript : MonoBehaviour
         if (CurrentHealth <= 0)
         {
             Debug.Log("You are dead");
+            uIManager.ShowDeadPage();
         }
     }
 

@@ -78,4 +78,10 @@ public class PlayerMovement : MonoBehaviour
     {
         moveForce = newAcc;
     }
+
+    public void StopMovement()
+    {
+        rocketSound.Stop();
+        this.enabled = false;
+    }
 }

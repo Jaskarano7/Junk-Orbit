@@ -2,9 +2,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private PlayerMovement playerMovement;
+    
     [Header("Health UI")]
     [SerializeField] private GameObject HealthBarParent;
     [SerializeField] private Image HealthBarImage;
@@ -17,6 +20,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.2f;
     [SerializeField] private float shakeStrength = 5f;
 
+    [Header("Page UI")]
+    [SerializeField] private GameObject Page;
+    [SerializeField] private GameObject Joystick;
+    [SerializeField] private Button Home;
+
     private Vector3 originalPosition;
     private float HealthTargetFill;
     private float OxygenTargetFill;
@@ -28,6 +36,9 @@ public class UIManager : MonoBehaviour
         HealthTargetFill = 1f;
         OxygenTargetFill = 1f;
         originalPosition = HealthBarParent.transform.localPosition;
+
+        // Page
+        Home.onClick.AddListener(GoHome);
     }
     void Update()
     {
@@ -77,5 +88,22 @@ public class UIManager : MonoBehaviour
         // reset position
         HealthBarParent.transform.localPosition = originalPosition;
     }
+
+
+    #region
+
+    void GoHome()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void ShowDeadPage()
+    {
+        Page.SetActive(true);
+        Joystick.SetActive(false);
+        playerMovement.StopMovement();
+    }
+
+    #endregion
 
 }
