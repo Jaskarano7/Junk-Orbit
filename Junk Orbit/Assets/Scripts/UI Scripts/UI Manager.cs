@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Page UI")]
     [SerializeField] private GameObject Page;
+    [SerializeField] private TextMeshProUGUI PageT;
     [SerializeField] private GameObject Joystick;
     [SerializeField] private Button Home;
 
@@ -99,6 +100,14 @@ public class UIManager : MonoBehaviour
 
     public void ShowDeadPage()
     {
+        Page.SetActive(true);
+        Joystick.SetActive(false);
+        playerMovement.StopMovement();
+    }
+
+    public void ShowLandingPage()
+    {
+        PageT.text = "Landing Completed";
         Page.SetActive(true);
         Joystick.SetActive(false);
         playerMovement.StopMovement();

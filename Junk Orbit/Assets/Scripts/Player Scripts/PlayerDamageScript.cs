@@ -34,6 +34,7 @@ public class PlayerDamageScript : MonoBehaviour
 
     [Header("Cooldown")]
     [SerializeField] private float hitCooldown = 0.5f;    // delay before next hit
+    public bool isLanding = false;
 
     private Coroutine flashRoutine;
     private Rigidbody rb;
@@ -192,7 +193,7 @@ public class PlayerDamageScript : MonoBehaviour
 
         while (true)
         {
-            if (CurrentOxygen > 0)
+            if (CurrentOxygen > 0 && !isLanding)
             {
                 timeWithoutOxygen = 0f;
 
@@ -203,27 +204,30 @@ public class PlayerDamageScript : MonoBehaviour
             {
                 timeWithoutOxygen += 1f;
                 float damageAmount;
-                
-                if (timeWithoutOxygen <= 5f)
+                if (!isLanding)
                 {
-                    damageAmount = 0.1f;
-                }
-                else if (timeWithoutOxygen <= 10f)
-                {
-                    damageAmount = 0.5f;
-                }
-                else
-                {
-                    damageAmount = 1f;
+                    if (timeWithoutOxygen <= 5f)
+                    {
+                        damageAmount = 0.1f;
+                    }
+                    else if (timeWithoutOxygen <= 10f)
+                    {
+                        damageAmount = 0.5f;
+                    }
+                    else
+                    {
+                        damageAmount = 1f;
+                    }
+                    CurrentHealth -= damageAmount;
+                    uIManager.UpdateHealthBar(CurrentHealth, TotalHealth);
                 }
 
-                CurrentHealth -= damageAmount;
-                uIManager.UpdateHealthBar(CurrentHealth, TotalHealth);
             }
 
             if (CurrentHealth <= 0)
             {
                 Debug.Log("GameOver");
+                uIManager.ShowDeadPage();
                 break;
             }
 

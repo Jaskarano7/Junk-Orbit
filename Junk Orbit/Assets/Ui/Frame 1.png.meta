@@ -329,6 +329,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Frame 1_10
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 1807
+        width: 600
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1feda5c9ded39a045b539a49d5357c22
+      internalID: -668229188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Frame 1_11
+      rect:
+        serializedVersion: 2
+        x: 1330
+        y: 1045
+        width: 345
+        height: 665
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c65dade0eec1c364992ae954de7d44eb
+      internalID: -1137513670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -345,6 +389,8 @@ TextureImporter:
     nameFileIdTable:
       Frame 1_0: -1955242649
       Frame 1_1: -690621437
+      Frame 1_10: -668229188
+      Frame 1_11: -1137513670
       Frame 1_2: 1039998326
       Frame 1_3: -1489521946
       Frame 1_4: -1223691068

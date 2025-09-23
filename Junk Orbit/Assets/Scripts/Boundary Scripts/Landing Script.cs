@@ -3,6 +3,10 @@ using System.Collections;
 
 public class LandingScript : MonoBehaviour
 {
+    [SerializeField] private PlayerDamageScript damageScript;
+    [SerializeField] private PlayerJunkCollector junkCollector;
+    [SerializeField] private UIManager uIManager;
+
     [SerializeField] private float TimeToLand = 5f;
 
     private bool hasLeftOnce = false;
@@ -14,6 +18,7 @@ public class LandingScript : MonoBehaviour
         if (other.CompareTag("Player") && hasLeftOnce && !isCounting)
         {
             landingCoroutine = StartCoroutine(StartLandingCountdown());
+            damageScript.isLanding = true;
         }
     }
 
@@ -23,29 +28,28 @@ public class LandingScript : MonoBehaviour
         {
             if (!hasLeftOnce)
             {
-                hasLeftOnce = true; // Mark that player has left once
-                Debug.Log("Player left zone once, next entry will start landing check");
+                hasLeftOnce = true;
             }
 
-            // If player leaves again during countdown, cancel landing
             if (landingCoroutine != null)
             {
                 StopCoroutine(landingCoroutine);
                 landingCoroutine = null;
                 isCounting = false;
-                Debug.Log("Player left before landing completed, countdown cancelled");
             }
+            damageScript.isLanding = false ;
         }
     }
 
     private IEnumerator StartLandingCountdown()
     {
         isCounting = true;
-        Debug.Log("Player entered again, starting landing countdown...");
 
         yield return new WaitForSeconds(TimeToLand);
 
         Debug.Log("Landing Completed");
+        Debug.Log("Junk Collected: "+ junkCollector.JunkList.Count);
+        uIManager.ShowLandingPage();
         isCounting = false;
         landingCoroutine = null;
     }

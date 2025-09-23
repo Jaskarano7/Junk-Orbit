@@ -321,6 +321,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79d1ed86aa6e56a47aeb7bbc107af97b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageScript: {fileID: 3469287837380642799}
+  junkCollector: {fileID: 3469287837380642796}
+  uIManager: {fileID: 348546750}
   TimeToLand: 5
 --- !u!1 &330585543
 GameObject:
@@ -592,6 +595,7 @@ MonoBehaviour:
   shakeDuration: 0.2
   shakeStrength: 15
   Page: {fileID: 1007992316}
+  PageT: {fileID: 1117386867}
   Joystick: {fileID: 8170153792923667872}
   Home: {fileID: 1178662852}
 --- !u!1 &371340419
@@ -7508,7 +7512,7 @@ MonoBehaviour:
   maxObstacles: 20
   obstacleMinDistance: 10
   obstacleSpawnRadiusMultiplier: 0.7
-  innerRadius: 7
+  innerRadius: 10
 --- !u!1 &1672713737
 GameObject:
   m_ObjectHideFlags: 0
@@ -8575,6 +8579,7 @@ MonoBehaviour:
   audioSource: {fileID: 1068117400}
   ThudSound: {fileID: 8300000, guid: 8c324667161f6a64d85bba986a8875a1, type: 3}
   hitCooldown: 0.5
+  isLanding: 0
 --- !u!114 &8170153791895783473
 MonoBehaviour:
   m_ObjectHideFlags: 0
