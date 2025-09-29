@@ -7,6 +7,7 @@ TagManager:
   - Junk
   - Obstacle
   - Small Obstacle
+  - SpaceShipArea
   layers:
   - Default
   - TransparentFX
