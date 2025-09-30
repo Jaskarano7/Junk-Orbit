@@ -5,13 +5,17 @@ public class AstronautAnimation : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject Child;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float RequiredRotattion = 60f;
+    [SerializeField] private float rotationSpeed = 2f; // how fast to rotate
 
     public bool isMoving = false;
+    private bool isFalling = false;
+    private bool shouldRotate = false;
+    private Quaternion targetRotation;
 
     public void StartMoving()
     {
         isMoving = true;
-        Debug.Log("Player Running");
     }
 
     public void ActivatePlayer()
@@ -34,12 +38,21 @@ public class AstronautAnimation : MonoBehaviour
         isMoving = false;
     }
 
+    private void RotatePlayer()
+    {
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+        targetRotation = Quaternion.Euler(currentRotation.x, RequiredRotattion, currentRotation.z);
+        shouldRotate = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("SpaceShipArea"))
         {
+            Debug.Log("Triggered");
             animator.SetTrigger("ShouldFall");
-            StopMoving();
+            isFalling = true;
+            speed = -5;
         }
     }
 
@@ -47,7 +60,43 @@ public class AstronautAnimation : MonoBehaviour
     {
         if (isMoving)
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+            transform.Translate(Vector3.right * speed * Time.deltaTime,Space.World);
+        }
+
+        if (isFalling)
+        {
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (stateInfo.IsName("Falling"))
+            {
+                if (stateInfo.normalizedTime >= 0.25f)
+                {
+                    RotatePlayer();
+                }
+
+                if (stateInfo.normalizedTime >= 0.5f)
+                {
+                    StopMoving();
+                }
+                if(stateInfo.normalizedTime >= 0.9f)
+                {
+                    animator.applyRootMotion = true;
+                    isFalling = false;
+                }
+            }
+        }
+
+        // Smooth rotation
+        if (shouldRotate)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Stop when close enough
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            {
+                transform.rotation = targetRotation;
+                shouldRotate = false;
+            }
         }
     }
 }
