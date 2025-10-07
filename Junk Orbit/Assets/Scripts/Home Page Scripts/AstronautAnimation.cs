@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AstronautAnimation : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class AstronautAnimation : MonoBehaviour
     private bool isFalling = false;
     private bool shouldRotate = false;
     private Quaternion targetRotation;
+
 
     public void StartMoving()
     {
