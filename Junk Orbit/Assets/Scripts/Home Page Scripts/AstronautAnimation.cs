@@ -80,7 +80,6 @@ public class AstronautAnimation : MonoBehaviour
                 }
                 if(stateInfo.normalizedTime >= 0.9f)
                 {
-                    animator.applyRootMotion = true;
                     isFalling = false;
                 }
             }
