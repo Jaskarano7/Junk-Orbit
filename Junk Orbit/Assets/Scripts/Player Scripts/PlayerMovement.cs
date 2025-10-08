@@ -5,9 +5,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player")]
     [SerializeField] private Rigidbody PlayerRb;
 
-    [Header("Script Ref")]
-    [SerializeField] private PlayerData playerData;
-
     [Header("Variables")]
     [SerializeField] private float moveForce = 10f;
     [SerializeField] private float maxSpeed = 5f;
@@ -25,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        maxSpeed = playerData.PlayerSpeed;
-        moveForce = playerData.PlayerAcceleration;
+        maxSpeed = 5;//playerData.PlayerSpeed;
+        moveForce = 5;// playerData.PlayerAcceleration;
     }
 
     void FixedUpdate()

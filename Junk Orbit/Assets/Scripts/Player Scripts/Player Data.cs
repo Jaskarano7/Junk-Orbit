@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class PlayerData : MonoBehaviour
+[System.Serializable]
+public class PlayerData
 {
     public int PlayerHealth;
     public int PlayerOxygen;
@@ -8,4 +9,7 @@ public class PlayerData : MonoBehaviour
     public int PlayerSpeed;
     public int PlayerAcceleration;
     public int PlayerPoints;
+    public int CurrentSheildLevel;
+    public int CurrentOxygenLevel;
+    public int CurrentSpeedLevel;
 }

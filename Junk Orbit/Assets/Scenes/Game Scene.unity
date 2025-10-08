@@ -514,7 +514,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 348546747}
-  - component: {fileID: 348546749}
   - component: {fileID: 348546748}
   - component: {fileID: 348546750}
   m_Layer: 0
@@ -552,7 +551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerRb: {fileID: 3469287837380642794}
-  playerData: {fileID: 348546749}
   moveForce: 5
   maxSpeed: 5
   rotationSpeed: 10
@@ -560,24 +558,6 @@ MonoBehaviour:
   rocketTrail: {fileID: 1068117399}
   rocketSound: {fileID: 3469287837380642797}
   fadeSpeed: 2
---- !u!114 &348546749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 348546746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 681fd41ed516c2f4d9668c9c8b7f9d13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerHealth: 5
-  PlayerOxygen: 15
-  PlayerLevel: 1
-  PlayerSpeed: 5
-  PlayerAcceleration: 5
-  PlayerPoints: 0
 --- !u!114 &348546750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6486,7 +6466,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 2
   collector: {fileID: 3469287837380642796}
-  playerData: {fileID: 348546749}
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1088504177}
@@ -6714,7 +6693,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 1
   collector: {fileID: 3469287837380642796}
-  playerData: {fileID: 348546749}
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1089219019}
@@ -7729,7 +7707,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionType: 0
   collector: {fileID: 3469287837380642796}
-  playerData: {fileID: 348546749}
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1875193615}
@@ -8460,7 +8437,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4a2deece363dab46967496e22ebd4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 348546749}
   uIManager: {fileID: 348546750}
   JunkList: []
   shrinkDuration: 0.3
@@ -8599,7 +8575,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraF: {fileID: 330585549}
-  playerData: {fileID: 348546749}
   uIManager: {fileID: 348546750}
   CurrentHealth: 0
   TotalHealth: 0

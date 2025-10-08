@@ -6,7 +6,6 @@ public class PlayerDamageScript : MonoBehaviour
 {
     [Header("Script Reference")]
     [SerializeField] private CameraFollow cameraF;
-    [SerializeField] private PlayerData playerData;
     [SerializeField] private UIManager uIManager;
 
     [Header("Health")]
@@ -44,8 +43,11 @@ public class PlayerDamageScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        CurrentHealth = TotalHealth = playerData.PlayerHealth;
-        CurrentOxygen = TotalOxygen= playerData.PlayerOxygen;
+        //CurrentHealth = TotalHealth = playerData.PlayerHealth;
+        //CurrentOxygen = TotalOxygen= playerData.PlayerOxygen;
+
+        CurrentHealth = TotalHealth = 5;
+        CurrentOxygen = TotalOxygen = 15;
 
         StartCoroutine(ReduceOxygen());
     }
