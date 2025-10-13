@@ -48,7 +48,6 @@ public class LandingScript : MonoBehaviour
         yield return new WaitForSeconds(TimeToLand);
 
         Debug.Log("Landing Completed");
-        Debug.Log("Junk Collected: "+ junkCollector.JunkList.Count);
         uIManager.ShowLandingPage();
         isCounting = false;
         landingCoroutine = null;

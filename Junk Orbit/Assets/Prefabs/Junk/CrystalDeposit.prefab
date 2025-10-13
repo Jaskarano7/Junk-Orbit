@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   junkInfo:
+    Name: Blue Crystal
     Level: 7
     Points: 100
   moveSpeed: 3

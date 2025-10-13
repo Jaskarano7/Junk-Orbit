@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   junkInfo:
+    Name: Terra Crystal
     Level: 6
     Points: 50
   moveSpeed: 3

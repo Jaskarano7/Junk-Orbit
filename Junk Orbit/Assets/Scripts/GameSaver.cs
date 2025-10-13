@@ -14,7 +14,7 @@ public class GameSaver : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         LoadPlayerData();
     }
 

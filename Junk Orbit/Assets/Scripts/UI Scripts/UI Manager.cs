@@ -3,10 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
+    [Header("Script References")]
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerJunkCollector junkCollector;
     
     [Header("Health UI")]
     [SerializeField] private GameObject HealthBarParent;
@@ -23,6 +27,7 @@ public class UIManager : MonoBehaviour
     [Header("Page UI")]
     [SerializeField] private GameObject Page;
     [SerializeField] private TextMeshProUGUI PageT;
+    [SerializeField] private TextMeshProUGUI ItemT;
     [SerializeField] private GameObject Joystick;
     [SerializeField] private Button Home;
 
@@ -91,10 +96,19 @@ public class UIManager : MonoBehaviour
     }
 
 
-    #region
+    #region Page UI 
 
-    void GoHome()
+    public void GoHome()
     {
+        List<JunkData> CurrentJunk = junkCollector.JunkList;
+        int CurrentPoints = 0;
+        foreach (JunkData junk in CurrentJunk)
+        {
+            CurrentPoints += junk.Points;
+        }
+        Debug.Log(CurrentPoints);
+        //GameSaver.instance.playerData.PlayerPoints += CurrentPoints;
+        //GameSaver.instance.SavePlayerData();
         SceneManager.LoadScene(0);
     }
 
@@ -107,12 +121,24 @@ public class UIManager : MonoBehaviour
 
     public void ShowLandingPage()
     {
+        ShowCollectedItems();
         PageT.text = "Landing Completed";
         Page.SetActive(true);
         Joystick.SetActive(false);
         playerMovement.StopMovement();
     }
 
+    public void ShowCollectedItems()
+    {
+        List<JunkData> CurrentJunk = junkCollector.JunkList;
+        string CurrentJunkList = "";
+        foreach(JunkData junk in CurrentJunk)
+        {
+            CurrentJunkList += junk.Name+"//"+junk.Points + "\n";
+        }
+        Debug.Log(CurrentJunkList);
+        ItemT.text = CurrentJunkList;
+    }
     #endregion
 
 }

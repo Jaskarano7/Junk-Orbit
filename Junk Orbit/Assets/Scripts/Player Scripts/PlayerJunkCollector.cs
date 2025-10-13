@@ -17,12 +17,6 @@ public class PlayerJunkCollector : MonoBehaviour
     [SerializeField] private AudioClip Collect;
     [SerializeField] private AudioClip Full;
 
-
-    private void Start()
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Junk"))
@@ -35,7 +29,6 @@ public class PlayerJunkCollector : MonoBehaviour
                 Debug.LogError($"{junk.name} does not have a SpaceJunk component!");
                 return;
             }
-
 
             StartCoroutine(ShrinkAndDestroy(junk, spaceJunk));
         }

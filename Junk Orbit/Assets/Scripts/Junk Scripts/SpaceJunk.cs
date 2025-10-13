@@ -36,6 +36,7 @@ public class SpaceJunk : MonoBehaviour
 [System.Serializable]
 public class JunkData
 {
+    public string Name;
     public int Level = 1;
     public int Points = 1;
 }

@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   junkInfo:
+    Name: Stone
     Level: 5
     Points: 30
   moveSpeed: 3
