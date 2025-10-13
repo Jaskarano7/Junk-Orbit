@@ -43,11 +43,8 @@ public class PlayerDamageScript : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        //CurrentHealth = TotalHealth = playerData.PlayerHealth;
-        //CurrentOxygen = TotalOxygen= playerData.PlayerOxygen;
-
-        CurrentHealth = TotalHealth = 5;
-        CurrentOxygen = TotalOxygen = 15;
+        CurrentHealth = TotalHealth = GameSaver.instance.playerData.PlayerHealth;
+        CurrentOxygen = TotalOxygen= GameSaver.instance.playerData.PlayerOxygen;
 
         StartCoroutine(ReduceOxygen());
     }

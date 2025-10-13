@@ -91,9 +91,11 @@ public class HomeManager : MonoBehaviour
     private void UpgradeShield()
     {
         RotateToTarget(0);
-        if(GameSaver.instance.playerData.CurrentSheildLevel < 5)
+        if(GameSaver.instance.playerData.CurrentSheildLevel < 5 && PriceDecider(GameSaver.instance.playerData.CurrentSheildLevel+1) <= GameSaver.instance.playerData.PlayerPoints)
         {
             GameSaver.instance.playerData.CurrentSheildLevel += 1;
+            GameSaver.instance.playerData.PlayerHealth += 1;
+            GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentSheildLevel);
             GameSaver.instance.SavePlayerData();
         }
         else
@@ -104,9 +106,11 @@ public class HomeManager : MonoBehaviour
     private void UpgradeOxygen()
     {
         RotateToTarget(1);
-        if (GameSaver.instance.playerData.CurrentOxygenLevel < 5)
+        if (GameSaver.instance.playerData.CurrentOxygenLevel < 5 && PriceDecider(GameSaver.instance.playerData.CurrentOxygenLevel + 1) <= GameSaver.instance.playerData.PlayerPoints)
         {
             GameSaver.instance.playerData.CurrentOxygenLevel += 1;
+            GameSaver.instance.playerData.PlayerOxygen += 2.5f;
+            GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentOxygenLevel);
             GameSaver.instance.SavePlayerData();
         }
         else
@@ -117,14 +121,36 @@ public class HomeManager : MonoBehaviour
     private void UpgradeSpeed()
     {
         RotateToTarget(2);
-        if (GameSaver.instance.playerData.CurrentSpeedLevel < 5)
+        if (GameSaver.instance.playerData.CurrentSpeedLevel < 5 && PriceDecider(GameSaver.instance.playerData.CurrentSpeedLevel + 1) <= GameSaver.instance.playerData.PlayerPoints)
         {
             GameSaver.instance.playerData.CurrentSpeedLevel += 1;
+            GameSaver.instance.playerData.PlayerSpeed += 2.5f;
+            GameSaver.instance.playerData.PlayerAcceleration += 2.5f;
+            GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentSpeedLevel);
             GameSaver.instance.SavePlayerData();
         }
         else
         {
             Debug.Log("Already at max");
+        }
+    }
+
+    private int PriceDecider(int level)
+    {
+        switch (level)
+        {
+            case 1:
+                return 50;
+            case 2:
+                return 50;
+            case 3:
+                return 250;
+            case 4:
+                return 500;
+            case 5:
+                return 1000;
+            default:
+                return 0;
         }
     }
 }

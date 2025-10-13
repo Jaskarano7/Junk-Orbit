@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerData
 {
     public int PlayerHealth;
-    public int PlayerOxygen;
+    public float PlayerOxygen;
     public int PlayerLevel;
-    public int PlayerSpeed;
-    public int PlayerAcceleration;
+    public float PlayerSpeed;
+    public float PlayerAcceleration;
     public int PlayerPoints;
     public int CurrentSheildLevel;
     public int CurrentOxygenLevel;

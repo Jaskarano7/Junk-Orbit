@@ -22,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        maxSpeed = 5;//playerData.PlayerSpeed;
-        moveForce = 5;// playerData.PlayerAcceleration;
+        maxSpeed = GameSaver.instance.playerData.PlayerSpeed;
+        moveForce = GameSaver.instance.playerData.PlayerAcceleration;
     }
 
     void FixedUpdate()
@@ -66,12 +66,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void UpdateSpeed(int newSpeed)
+    public void UpdateSpeed(float newSpeed)
     {
         maxSpeed = newSpeed;
     }
 
-    public void UpdateAcc(int newAcc)
+    public void UpdateAcc(float newAcc)
     {
         moveForce = newAcc;
     }

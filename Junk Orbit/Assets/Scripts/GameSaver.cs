@@ -14,7 +14,7 @@ public class GameSaver : MonoBehaviour
 
         instance = this;
         DontDestroyOnLoad(gameObject);
-        //PlayerPrefs.DeleteAll();
+        PlayerPrefs.DeleteAll();
         LoadPlayerData();
     }
 
@@ -24,10 +24,10 @@ public class GameSaver : MonoBehaviour
     public void SavePlayerData()
     {
         PlayerPrefs.SetInt("PlayerHealth", playerData.PlayerHealth);
-        PlayerPrefs.SetInt("PlayerOxygen", playerData.PlayerOxygen);
+        PlayerPrefs.SetFloat("PlayerOxygen", playerData.PlayerOxygen);
         PlayerPrefs.SetInt("PlayerLevel", playerData.PlayerLevel);
-        PlayerPrefs.SetInt("PlayerSpeed", playerData.PlayerSpeed);
-        PlayerPrefs.SetInt("PlayerAcceleration", playerData.PlayerAcceleration);
+        PlayerPrefs.SetFloat("PlayerSpeed", playerData.PlayerSpeed);
+        PlayerPrefs.SetFloat("PlayerAcceleration", playerData.PlayerAcceleration);
         PlayerPrefs.SetInt("PlayerPoints", playerData.PlayerPoints);
         PlayerPrefs.SetInt("CurrentSheildLevel", playerData.CurrentSheildLevel);
         PlayerPrefs.SetInt("CurrentOxygenLevel", playerData.CurrentOxygenLevel);

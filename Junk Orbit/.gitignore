@@ -100,4 +100,6 @@ InitTestScene*.unity*
 
 # Ignore one specific image
 /Assets/Materials/black-stone.jpg
+/Assets/Materials/black-stone.jpg.meta
 /Assets/Materials/natural-slate-flooring-textured-background.jpg
+/Assets/Materials/natural-slate-flooring-textured-background.jpg.meta
