@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class GameSaver : MonoBehaviour
@@ -32,6 +33,7 @@ public class GameSaver : MonoBehaviour
         PlayerPrefs.SetInt("CurrentSheildLevel", playerData.CurrentSheildLevel);
         PlayerPrefs.SetInt("CurrentOxygenLevel", playerData.CurrentOxygenLevel);
         PlayerPrefs.SetInt("CurrentSpeedLevel", playerData.CurrentSpeedLevel);
+        PlayerPrefs.SetInt("DifficultyLevel", playerData.DifficultyLevel);
 
         PlayerPrefs.Save();
         Debug.Log("Player data saved successfully!");
@@ -59,6 +61,7 @@ public class GameSaver : MonoBehaviour
         playerData.CurrentSheildLevel = PlayerPrefs.GetInt("CurrentSheildLevel");
         playerData.CurrentOxygenLevel = PlayerPrefs.GetInt("CurrentOxygenLevel");
         playerData.CurrentSpeedLevel = PlayerPrefs.GetInt("CurrentSpeedLevel");
+        playerData.DifficultyLevel = PlayerPrefs.GetInt("DifficultyLevel");
 
         Debug.Log("Player data loaded successfully!");
     }
@@ -77,5 +80,6 @@ public class GameSaver : MonoBehaviour
         playerData.CurrentSheildLevel = 1;
         playerData.CurrentOxygenLevel = 1;
         playerData.CurrentSpeedLevel = 1;
+        playerData.DifficultyLevel = 1;
 }
 }

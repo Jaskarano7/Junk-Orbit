@@ -96,6 +96,8 @@ public class HomeManager : MonoBehaviour
             GameSaver.instance.playerData.CurrentSheildLevel += 1;
             GameSaver.instance.playerData.PlayerHealth += 1;
             GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentSheildLevel);
+            GameSaver.instance.playerData.DifficultyLevel = CheckCurrentLevel();
+            Debug.Log(CheckCurrentLevel());
             GameSaver.instance.SavePlayerData();
         }
         else
@@ -111,6 +113,8 @@ public class HomeManager : MonoBehaviour
             GameSaver.instance.playerData.CurrentOxygenLevel += 1;
             GameSaver.instance.playerData.PlayerOxygen += 2.5f;
             GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentOxygenLevel);
+            GameSaver.instance.playerData.DifficultyLevel = CheckCurrentLevel();
+            Debug.Log(CheckCurrentLevel());
             GameSaver.instance.SavePlayerData();
         }
         else
@@ -127,6 +131,8 @@ public class HomeManager : MonoBehaviour
             GameSaver.instance.playerData.PlayerSpeed += 2.5f;
             GameSaver.instance.playerData.PlayerAcceleration += 2.5f;
             GameSaver.instance.playerData.PlayerPoints -= PriceDecider(GameSaver.instance.playerData.CurrentSpeedLevel);
+            GameSaver.instance.playerData.DifficultyLevel = CheckCurrentLevel();
+            Debug.Log(CheckCurrentLevel());
             GameSaver.instance.SavePlayerData();
         }
         else
@@ -151,6 +157,31 @@ public class HomeManager : MonoBehaviour
                 return 1000;
             default:
                 return 0;
+        }
+    }
+
+    private int CheckCurrentLevel()
+    {
+        int level = GameSaver.instance.playerData.CurrentSheildLevel + GameSaver.instance.playerData.CurrentOxygenLevel + GameSaver.instance.playerData.CurrentSpeedLevel;
+        if(level <= 5)
+        {
+            return 1;
+        }
+        else if (level >= 6 && level <= 8)
+        {
+            return 2;
+        }
+        else if(level >= 9 && level <= 12)
+        {
+            return 3;
+        }
+        else if (level > 12)
+        {
+            return 4;
+        }
+        else
+        {
+            return 0;
         }
     }
 }

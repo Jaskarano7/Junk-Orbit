@@ -12,4 +12,5 @@ public class PlayerData
     public int CurrentSheildLevel;
     public int CurrentOxygenLevel;
     public int CurrentSpeedLevel;
+    public int DifficultyLevel;
 }

@@ -6478,6 +6478,7 @@ MonoBehaviour:
     CurrentSheildLevel: 0
     CurrentOxygenLevel: 0
     CurrentSpeedLevel: 0
+    DifficultyLevel: 0
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1088504177}
@@ -6715,6 +6716,7 @@ MonoBehaviour:
     CurrentSheildLevel: 0
     CurrentOxygenLevel: 0
     CurrentSpeedLevel: 0
+    DifficultyLevel: 0
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1089219019}
@@ -7523,7 +7525,7 @@ MonoBehaviour:
   - {fileID: 513202226462960858, guid: 8e87f6e96f1597f4fbefcc0955c2d4ef, type: 3}
   - {fileID: 465439416634918061, guid: 565986c905ac0c14e99d1495fe0c4fc6, type: 3}
   - {fileID: 6736826768651448760, guid: 160b69148f8e6384eb224a0138b0d44d, type: 3}
-  currentLevel: 3
+  currentLevel: 1
   minJunk: 15
   maxJunk: 25
   junkMinDistance: 5
@@ -7540,6 +7542,18 @@ MonoBehaviour:
   obstacleMinDistance: 10
   obstacleSpawnRadiusMultiplier: 0.7
   innerRadius: 10
+  commonRatio: 0.4
+  rareRatio: 0.3
+  ultraRatio: 0.2
+  legendaryRatio: 0.1
+  commonWeight: 50
+  rareWeight: 20
+  ultraWeight: 10
+  legendaryWeight: 5
+  commonCount: 0
+  rareCount: 0
+  ultraCount: 0
+  legendaryCount: 0
 --- !u!1 &1576656470
 GameObject:
   m_ObjectHideFlags: 0
@@ -7875,6 +7889,7 @@ MonoBehaviour:
     CurrentSheildLevel: 0
     CurrentOxygenLevel: 0
     CurrentSpeedLevel: 0
+    DifficultyLevel: 0
   playerMovement: {fileID: 348546748}
   uIManager: {fileID: 348546750}
   audioSource: {fileID: 1875193615}
@@ -8616,6 +8631,7 @@ MonoBehaviour:
     CurrentSheildLevel: 0
     CurrentOxygenLevel: 0
     CurrentSpeedLevel: 0
+    DifficultyLevel: 0
   uIManager: {fileID: 348546750}
   JunkList: []
   shrinkDuration: 0.3
