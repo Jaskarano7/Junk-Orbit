@@ -107,8 +107,8 @@ public class UIManager : MonoBehaviour
             CurrentPoints += junk.Points;
         }
         Debug.Log(CurrentPoints);
-        //GameSaver.instance.playerData.PlayerPoints += CurrentPoints;
-        //GameSaver.instance.SavePlayerData();
+        GameSaver.instance.playerData.PlayerPoints += CurrentPoints;
+        GameSaver.instance.SavePlayerData();
         SceneManager.LoadScene(0);
     }
 
