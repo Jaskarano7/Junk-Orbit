@@ -18,9 +18,6 @@ public class HomeManager : MonoBehaviour
     [SerializeField] private Button OxygenB;
     [SerializeField] private Button SpeedB;
 
-    [Header("Parent Objects")]
-    [SerializeField] private GameObject UpgradationButtonParent;
-
     [Header("Rotation")]
     [SerializeField] private Transform SpaceShip;
     [SerializeField] private float rotationSpeed = 5f;
@@ -48,7 +45,6 @@ public class HomeManager : MonoBehaviour
         CameraAnimator.Play(CameraAnimationName);
         LaunchB.gameObject.SetActive(false);
         UpgradeB.gameObject.SetActive(false);
-        UpgradationButtonParent.SetActive(true);
     }
 
     void ToGamePage()

@@ -4,6 +4,7 @@ using UnityEngine;
 public class CameraScript : MonoBehaviour
 {
     [SerializeField] private AstronautAnimation astronautAnimationScript;
+    [SerializeField] private GameObject UIBox;
 
     public void PlayAnimation()
     {
@@ -25,4 +26,8 @@ public class CameraScript : MonoBehaviour
         astronautAnimationScript.RunNormal();
     }
 
+    public void ShowButtons()
+    {
+        UIBox.SetActive(true);
+    }
 }
