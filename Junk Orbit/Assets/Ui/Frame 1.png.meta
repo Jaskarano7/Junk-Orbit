@@ -39,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -106,17 +106,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Frame 1_0
+      name: Main Boundary
       rect:
         serializedVersion: 2
-        x: 34
-        y: 1762
-        width: 319
-        height: 132
+        x: 18
+        y: 3645
+        width: 630
+        height: 260
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,13 +145,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_1
+      name: Oxygen Unfilled
       rect:
         serializedVersion: 2
-        x: 627
-        y: 1794
-        width: 200
-        height: 200
+        x: 446
+        y: 3211
+        width: 399
+        height: 399
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,13 +167,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_2
+      name: Oxygen Filled
       rect:
         serializedVersion: 2
-        x: 377
-        y: 1798
-        width: 200
-        height: 200
+        x: 15
+        y: 3212
+        width: 399
+        height: 399
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,13 +189,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_3
+      name: Health Bar Boundary
       rect:
         serializedVersion: 2
-        x: 34
-        y: 1934
-        width: 278
-        height: 27
+        x: 15
+        y: 3940
+        width: 548
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,13 +211,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_4
+      name: Health Bar
       rect:
         serializedVersion: 2
-        x: 36
-        y: 1973
-        width: 273
-        height: 21
+        x: 16
+        y: 4033
+        width: 527
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -220,177 +233,133 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_5
+      name: Card
       rect:
         serializedVersion: 2
-        x: 20
-        y: 1194
-        width: 512
-        height: 512
+        x: 18
+        y: 1709
+        width: 1030
+        height: 1473
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd45be6fad8311e46a39ac43986adaaa
-      internalID: -286943887
+      spriteID: 92fbe22bcd6e2004da2be136e4d28be8
+      internalID: -1430538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_6
+      name: Button
       rect:
         serializedVersion: 2
-        x: 20
-        y: 655
-        width: 512
-        height: 512
+        x: 15
+        y: 385
+        width: 631
+        height: 190
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d4718c12a9026f4994c335b4e62b38f
-      internalID: 1845076459
+      spriteID: 49506404db4774747941d3fe6d6c3f43
+      internalID: -2078649444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_7
+      name: Shield
       rect:
         serializedVersion: 2
-        x: 20
-        y: 105
-        width: 512
-        height: 512
+        x: 51
+        y: 1200
+        width: 450
+        height: 425
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a59bb3cb7a3468342a6faf58ef98906d
-      internalID: 165281545
+      spriteID: f66e2a0d37ddef247b7e59ffea75dfa4
+      internalID: 428287317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_8
+      name: Speed
       rect:
         serializedVersion: 2
-        x: 891
-        y: 1764
-        width: 250
-        height: 250
+        x: 734
+        y: 1172
+        width: 344
+        height: 501
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20a318afe728ea64c8d06e3b02768d83
-      internalID: -255394408
+      spriteID: 0c8866f770b7a404d9c17deb2ec3a314
+      internalID: 43136940
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_9
+      name: Oxygen
       rect:
         serializedVersion: 2
-        x: 679
-        y: 1197
-        width: 408
-        height: 518
+        x: 160
+        y: 623
+        width: 230
+        height: 501
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b334ce7398e1ca4eaad11bf2c0a916b
-      internalID: 1670876626
+      spriteID: 360ac80e75aa1cd4e941e1c4475ffafe
+      internalID: 451324866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Frame 1_10
+      name: Currency
       rect:
         serializedVersion: 2
-        x: 1222
-        y: 1807
-        width: 600
-        height: 159
+        x: 640
+        y: 623
+        width: 485
+        height: 482
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1feda5c9ded39a045b539a49d5357c22
-      internalID: -668229188
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Frame 1_11
-      rect:
-        serializedVersion: 2
-        x: 1219
-        y: 578
-        width: 778
-        height: 1137
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c65dade0eec1c364992ae954de7d44eb
-      internalID: -1137513670
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Frame 1_12
-      rect:
-        serializedVersion: 2
-        x: 584
-        y: 419
-        width: 600
-        height: 160
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fe005c4e52bb1cd438d6ce34a2208b13
-      internalID: 1442369091
+      spriteID: 2b559efb8858de141ae275d52769ca99
+      internalID: 264970253
       vertices: []
       indices: 
       edges: []
@@ -409,19 +378,25 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Frame 1_0: -1955242649
-      Frame 1_1: -690621437
+      Button: -2078649444
+      Card: -1430538
+      Currency: 264970253
       Frame 1_10: -668229188
       Frame 1_11: -1137513670
       Frame 1_12: 1442369091
-      Frame 1_2: 1039998326
-      Frame 1_3: -1489521946
-      Frame 1_4: -1223691068
       Frame 1_5: -286943887
       Frame 1_6: 1845076459
       Frame 1_7: 165281545
       Frame 1_8: -255394408
       Frame 1_9: 1670876626
+      Health Bar: -1223691068
+      Health Bar Boundary: -1489521946
+      Main Boundary: -1955242649
+      Oxygen: 451324866
+      Oxygen Filled: 1039998326
+      Oxygen Unfilled: -690621437
+      Shield: 428287317
+      Speed: 43136940
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
