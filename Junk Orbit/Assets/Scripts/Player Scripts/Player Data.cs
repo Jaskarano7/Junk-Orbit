@@ -3,7 +3,7 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int PlayerHealth;
+    public float PlayerHealth;
     public float PlayerOxygen;
     public int PlayerLevel;
     public float PlayerSpeed;

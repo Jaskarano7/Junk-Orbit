@@ -24,7 +24,7 @@ public class GameSaver : MonoBehaviour
     // -----------------------
     public void SavePlayerData()
     {
-        PlayerPrefs.SetInt("PlayerHealth", playerData.PlayerHealth);
+        PlayerPrefs.SetFloat("PlayerHealth", playerData.PlayerHealth);
         PlayerPrefs.SetFloat("PlayerOxygen", playerData.PlayerOxygen);
         PlayerPrefs.SetInt("PlayerLevel", playerData.PlayerLevel);
         PlayerPrefs.SetFloat("PlayerSpeed", playerData.PlayerSpeed);
@@ -52,11 +52,11 @@ public class GameSaver : MonoBehaviour
             return;
         }
 
-        playerData.PlayerHealth = PlayerPrefs.GetInt("PlayerHealth");
-        playerData.PlayerOxygen = PlayerPrefs.GetInt("PlayerOxygen");
+        playerData.PlayerHealth = PlayerPrefs.GetFloat("PlayerHealth");
+        playerData.PlayerOxygen = PlayerPrefs.GetFloat("PlayerOxygen");
         playerData.PlayerLevel = PlayerPrefs.GetInt("PlayerLevel");
-        playerData.PlayerSpeed = PlayerPrefs.GetInt("PlayerSpeed");
-        playerData.PlayerAcceleration = PlayerPrefs.GetInt("PlayerAcceleration");
+        playerData.PlayerSpeed = PlayerPrefs.GetFloat("PlayerSpeed");
+        playerData.PlayerAcceleration = PlayerPrefs.GetFloat("PlayerAcceleration");
         playerData.PlayerPoints = PlayerPrefs.GetInt("PlayerPoints");
         playerData.CurrentSheildLevel = PlayerPrefs.GetInt("CurrentSheildLevel");
         playerData.CurrentOxygenLevel = PlayerPrefs.GetInt("CurrentOxygenLevel");
